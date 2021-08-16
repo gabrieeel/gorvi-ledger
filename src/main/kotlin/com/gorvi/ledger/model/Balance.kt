@@ -23,4 +23,6 @@ class Balance {
     @JoinColumn(name = "currency_id", referencedColumnName = "id")
     var currency: Currency = Currency()
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "balance")
+    var movements: List<Movement> = ArrayList<Movement>()
 }
