@@ -5,11 +5,12 @@ import java.util.*
 import javax.persistence.*
 
 /**
- * Example: USD Balance of Payoneer
+ * Example: USD Balance of PayPal
  */
 @Entity
 class Balance {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
     @Column(name = "current_value")

@@ -9,17 +9,18 @@ import javax.persistence.*
 @Entity
 class Account {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
     var balances: List<Balance> = ArrayList<Balance>()
 
     @OneToOne
-    @JoinColumn(name = "ledger_user", referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     var user: User = User()
 
     @OneToOne
-    @JoinColumn(name = "company", referencedColumnName = "id")
+    @JoinColumn(name = "company_id", referencedColumnName = "id")
     var company: Company = Company();
 
 }

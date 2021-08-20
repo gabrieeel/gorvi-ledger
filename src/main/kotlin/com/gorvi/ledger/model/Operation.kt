@@ -1,12 +1,12 @@
 package com.gorvi.ledger.model
 
+import org.hibernate.annotations.TypeDef
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import java.util.*
 import javax.persistence.*
 
-
 @Entity
+@TypeDef(name = "operation_type", typeClass = PostgreSQLEnumType::class)
 class Operation {
 
     enum class Type {
@@ -14,14 +14,17 @@ class Operation {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
 
     var created: LocalDateTime = LocalDateTime.now()
 
+    @Enumerated(EnumType.STRING)
+    @org.hibernate.annotations.Type(type = "operation_type")
     var type: Type = Type.DEPOSIT;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
-    var movements: List<Movement> = ArrayList<Movement>()
+    var movements: List<Movement> = emptyList()
 
     @OneToOne
     @JoinColumn(name = "source_operation_id")
@@ -43,3 +46,4 @@ class Operation {
     }
 
 }
+
