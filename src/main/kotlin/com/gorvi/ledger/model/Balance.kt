@@ -9,6 +9,7 @@ import javax.persistence.*
  */
 @Entity
 class Balance {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
@@ -25,5 +26,14 @@ class Balance {
     var currency: Currency = Currency()
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "balance")
-    var movements: List<Movement> = ArrayList<Movement>()
+    var movements: MutableList<Movement> = mutableListOf()
+
+    fun addMovement(movement: Movement) {
+        movements.add(movement)
+        currentValue = currentValue.add(movement.amountIn).subtract(movement.amountOut)
+    }
+
+//    fun addMovements(listOf: List<Movement>) {
+//        move
+//    }
 }
