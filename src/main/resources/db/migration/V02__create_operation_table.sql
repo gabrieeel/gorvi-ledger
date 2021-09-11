@@ -4,7 +4,7 @@ CREATE TABLE operation(
     id SERIAL PRIMARY KEY,
     created TIMESTAMP,
     type OPERATION_TYPE,
-    reference_id VARCHAR(50),
+    reference_id VARCHAR(100),
     notes VARCHAR(255),
     exchange_rate NUMERIC(16, 8) DEFAULT 0,
     source_operation_id INTEGER UNIQUE REFERENCES operation(id)
