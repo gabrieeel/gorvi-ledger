@@ -1,7 +1,6 @@
 package com.gorvi.ledger.model
 
 import java.math.BigDecimal
-import java.util.*
 import javax.persistence.*
 
 /**
@@ -28,12 +27,11 @@ class Balance {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "balance")
     var movements: MutableList<Movement> = mutableListOf()
 
-    fun addMovement(movement: Movement) {
-        movements.add(movement)
-        currentValue = currentValue.add(movement.amountIn).subtract(movement.amountOut)
+    fun addMovements(movements: List<Movement>) {
+        movements.forEach{
+            this.currentValue = currentValue.add(it.amountIn).subtract(it.amountOut)
+            this.movements.add(it)
+        }
     }
 
-//    fun addMovements(listOf: List<Movement>) {
-//        move
-//    }
 }

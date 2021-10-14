@@ -1,0 +1,18 @@
+### Create a new withdrawal for logged in user in account 2
+POST http://localhost:8080/api/accounts/2/operations/withdrawals
+Content-Type: application/json
+
+{
+  "created": "2020-11-25T18:33:00.000Z",
+  "currency": "USD",
+  "amount": 5000,
+  "fee": {
+    "currency": "USD",
+    "amount": 200
+  },
+  "referenceId": "some-id",
+  "notes": "withdrawal of 5000",
+  "sourceOperationId": null
+}
+
+###

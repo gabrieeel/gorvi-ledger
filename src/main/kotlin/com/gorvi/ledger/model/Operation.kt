@@ -10,7 +10,7 @@ import javax.persistence.*
 class Operation {
 
     enum class Type {
-        DEPOSIT //, WITHDRAWAL, PURCHASE, INVESTMENT?
+        DEPOSIT, PURCHASE, WITHDRAWAL // INVESTMENT?
     }
 
     @Id
