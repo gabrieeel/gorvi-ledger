@@ -68,6 +68,7 @@ class OperationService(val accountService: AccountService,
         movementRepository.save(movement)
         balance.addMovements(listOf(movement))
 
+        balanceService.update(balance)
         dto.fee?.let {
             val feeBalance = balanceService.getBalance(account, it.currency)
             val feeMovement = Movement()
@@ -76,7 +77,9 @@ class OperationService(val accountService: AccountService,
             feeMovement.balance = feeBalance
             feeMovement.operation = operation
             movementRepository.save(feeMovement)
-            balance.addMovements(listOf(feeMovement))
+            feeBalance.addMovements(listOf(feeMovement))
+
+            balanceService.update(feeBalance)
         }
 
 

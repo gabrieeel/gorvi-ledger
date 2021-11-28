@@ -3,15 +3,15 @@ POST http://localhost:8080/api/accounts/2/operations/withdrawals
 Content-Type: application/json
 
 {
-  "created": "2020-11-25T18:33:00.000Z",
+  "created": "2021-11-28T17:43:00.000Z",
   "currency": "USD",
-  "amount": 5000,
+  "amount": 55,
   "fee": {
     "currency": "USD",
-    "amount": 200
+    "amount": 0.55
   },
-  "referenceId": "some-id",
-  "notes": "withdrawal of 5000",
+  "referenceId": "202111281750",
+  "notes": "withdrawal of 55",
   "sourceOperationId": null
 }
 
