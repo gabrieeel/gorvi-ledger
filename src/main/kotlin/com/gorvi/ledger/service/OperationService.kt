@@ -1,6 +1,7 @@
 package com.gorvi.ledger.service
 
 import com.gorvi.ledger.dto.DepositDTO
+import com.gorvi.ledger.dto.PurchaseDTO
 import com.gorvi.ledger.dto.WithdrawalDTO
 import com.gorvi.ledger.model.Movement
 import com.gorvi.ledger.model.Operation
@@ -84,6 +85,52 @@ class OperationService(val accountService: AccountService,
 
 
         balanceService.update(balance)
+
+        return operation
+    }
+
+    @Transactional
+    fun createPurchase(accountId: Long, dto: PurchaseDTO) : Operation {
+        val account = accountService.getAccount(accountId)
+
+        val operation = Operation()
+        operation.type = Operation.Type.PURCHASE
+        operation.created = dto.created.toLocalDateTime()
+//        operation.notes = dto.notes
+        operation.referenceId = dto.referenceId
+        operationRepository.save(operation)
+
+        val incomingBalance = balanceService.getBalance(account, dto.purchased.currency)
+        val outgoingBalance = balanceService.getBalance(account, dto.spent.currency)
+
+        val incomingMovement = Movement()
+        incomingMovement.amountIn = dto.purchased.amount
+        incomingMovement.balance = incomingBalance
+        incomingMovement.operation = operation
+        movementRepository.save(incomingMovement)
+        incomingBalance.addMovements(listOf(incomingMovement))
+        balanceService.update(incomingBalance)
+
+        val outgoingMovement = Movement()
+        outgoingMovement.amountOut = dto.spent.amount
+        outgoingMovement.balance = outgoingBalance
+        outgoingMovement.operation = operation
+        movementRepository.save(outgoingMovement)
+        outgoingBalance.addMovements(listOf(outgoingMovement))
+        balanceService.update(outgoingBalance)
+
+        dto.fee?.let {
+            val feeBalance = balanceService.getBalance(account, it.currency)
+            val feeMovement = Movement()
+            feeMovement.fee = true
+            feeMovement.amountOut = it.amount
+            feeMovement.balance = feeBalance
+            feeMovement.operation = operation
+            movementRepository.save(feeMovement)
+            feeBalance.addMovements(listOf(feeMovement))
+
+            balanceService.update(feeBalance)
+        }
 
         return operation
     }

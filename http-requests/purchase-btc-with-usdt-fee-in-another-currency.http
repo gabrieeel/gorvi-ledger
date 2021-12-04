@@ -1,0 +1,21 @@
+### Purchase BTC with USDT
+POST http://localhost:8080/api/accounts/6/operations/purchases
+Content-Type: application/json
+
+ {
+  "created": "2021-11-17T00:08:37.000Z",
+  "purchased": {
+    "currency": "BTC",
+    "amount": 0.01568
+  },
+  "spent": {
+    "currency": "USDT",
+    "amount": 925.12000000
+  },
+  "fee": {
+    "currency": "BNB",
+    "amount": 0.00121374
+   },
+   "referenceId": "8283054460",
+   "notes": null
+}
