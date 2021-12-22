@@ -5,7 +5,7 @@ CREATE TABLE ledger_user(
 
 CREATE TABLE company(
     id SERIAL PRIMARY KEY,
-    name VARCHAR(20) UNIQUE NOT NULL
+    name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE account(
@@ -16,12 +16,13 @@ CREATE TABLE account(
 
 CREATE TABLE currency(
     id SERIAL PRIMARY KEY,
-    code VARCHAR(10) NOT NULL
+    code VARCHAR(100) NOT NULL,
+    name VARCHAR(100)
 );
 
 CREATE TABLE balance(
     id SERIAL PRIMARY KEY,
-    current_value NUMERIC(16, 8) DEFAULT 0,
+    current_value NUMERIC(36, 18) DEFAULT 0,
     account_id INTEGER NOT NULL REFERENCES account(id),
     currency_id INTEGER NOT NULL REFERENCES currency(id)
 );

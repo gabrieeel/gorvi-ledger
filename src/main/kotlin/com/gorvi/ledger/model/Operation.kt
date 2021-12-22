@@ -10,7 +10,7 @@ import javax.persistence.*
 class Operation {
 
     enum class Type {
-        DEPOSIT, PURCHASE, WITHDRAWAL // INVESTMENT?
+        DEPOSIT, PURCHASE, WITHDRAWAL
     }
 
     @Id
@@ -34,9 +34,6 @@ class Operation {
     var referenceId: String? = null
 
     var notes: String? = null
-
-    @Column(name = "exchange_rate")
-    var exchangeRate: BigDecimal? = null
 
     fun getAmount() : BigDecimal {
         // sumo todos los movements,

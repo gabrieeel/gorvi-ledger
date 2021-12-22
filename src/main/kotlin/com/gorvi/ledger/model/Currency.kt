@@ -14,4 +14,5 @@ class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
     var code: String = ""
+    var name: String = ""
 }
