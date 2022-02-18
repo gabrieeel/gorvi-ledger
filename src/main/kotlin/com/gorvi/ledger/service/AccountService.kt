@@ -1,10 +1,7 @@
 package com.gorvi.ledger.service
 
-import com.gorvi.ledger.dto.response.AccountDTO
-import com.gorvi.ledger.dto.response.BalanceDTO
 import com.gorvi.ledger.model.Account
 import com.gorvi.ledger.persistence.AccountRepository
-import com.gorvi.ledger.persistence.CurrencyRepository
 import org.springframework.stereotype.Service
 
 @Service
