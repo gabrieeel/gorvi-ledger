@@ -135,4 +135,9 @@ class OperationService(val accountService: AccountService,
         return operation
     }
 
+
+    fun getAll() : List<Operation> {
+        return operationRepository.findAllByOrderByCreatedDesc()
+    }
+
 }

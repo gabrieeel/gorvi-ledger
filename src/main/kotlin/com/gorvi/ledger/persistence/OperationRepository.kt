@@ -4,4 +4,6 @@ import com.gorvi.ledger.model.Operation
 import org.springframework.data.repository.CrudRepository
 
 interface OperationRepository : CrudRepository<Operation, Long>{
+    fun findAllByOrderByCreatedDesc() : List<Operation>
+
 }
