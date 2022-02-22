@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: gorvi ledger
+  datasource:
+    driverClassName: org.postgresql.Driver
+    maxActive: 10
+    url: jdbc:postgresql://localhost:5432/gorvi_ledger
+    username: postgres
+    password: postgres
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    user: postgres
+    password: postgres
+
