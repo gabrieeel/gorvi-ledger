@@ -24,7 +24,7 @@ class Operation {
     var type: Type = Type.DEPOSIT;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "operation")
-    var movements: List<Movement> = emptyList()
+    var movements: MutableList<Movement> = mutableListOf()
 
     @OneToOne
     @JoinColumn(name = "source_operation_id")

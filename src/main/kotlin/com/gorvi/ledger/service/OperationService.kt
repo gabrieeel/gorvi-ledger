@@ -29,7 +29,7 @@ class OperationService(val accountService: AccountService,
         operation.created = dto.created.toLocalDateTime()
         operation.notes = dto.notes
         operation.referenceId = dto.referenceId
-        operation.movements = listOf(movement)
+        operation.movements = mutableListOf(movement)
         operationRepository.save(operation)
 
         movement.operation = operation
@@ -67,9 +67,12 @@ class OperationService(val accountService: AccountService,
         movement.balance = balance
         movement.operation = operation
         movementRepository.save(movement)
-        balance.addMovements(listOf(movement))
 
+        balance.addMovements(listOf(movement))
         balanceService.update(balance)
+
+        operation.movements = mutableListOf(movement)
+
         dto.fee?.let {
             val feeBalance = balanceService.getBalance(account, it.currency)
             val feeMovement = Movement()
@@ -78,13 +81,12 @@ class OperationService(val accountService: AccountService,
             feeMovement.balance = feeBalance
             feeMovement.operation = operation
             movementRepository.save(feeMovement)
+
             feeBalance.addMovements(listOf(feeMovement))
-
             balanceService.update(feeBalance)
+
+            operation.movements.add(feeMovement)
         }
-
-
-        balanceService.update(balance)
 
         return operation
     }
