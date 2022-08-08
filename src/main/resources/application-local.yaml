@@ -13,3 +13,4 @@ spring:
     user: postgres
     password: postgres
 
+jwtKey: /CIXcNwSHAo9OufABHjNIf2IXUVHy0CJiFD2SNiFYeU=
